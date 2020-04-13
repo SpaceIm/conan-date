@@ -38,13 +38,13 @@ class DateConan(ConanFile):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
-    def source(self):
-        tools.get(**self.conan_data["sources"][self.version])
-        os.rename(self.name + "-" + self.version, self._source_subfolder)
-
     def requirements(self):
         if not self.options.use_system_tz_db:
             self.requires.add("libcurl/7.67.0")
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])
+        os.rename(self.name + "-" + self.version, self._source_subfolder)
 
     def _configure_cmake(self):
         if self._cmake:
