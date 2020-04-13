@@ -21,7 +21,7 @@ class DateConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "use_system_tz_db": True,
+        "use_system_tz_db": False,
         "use_tz_db_in_dot": False
     }
 
@@ -30,6 +30,7 @@ class DateConan(ConanFile):
     @property
     def _source_subfolder(self):
         return "source_subfolder"
+
     @property
     def _build_subfolder(self):
         return "build_subfolder"
@@ -40,7 +41,7 @@ class DateConan(ConanFile):
 
     def requirements(self):
         if not self.options.use_system_tz_db:
-            self.requires.add("libcurl/7.67.0")
+            self.requires.add("libcurl/7.69.1")
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
