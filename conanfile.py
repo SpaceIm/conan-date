@@ -21,7 +21,7 @@ class DateConan(ConanFile):
     default_options = {
         "shared": False,
         "fPIC": True,
-        "use_system_tz_db": False,
+        "use_system_tz_db": True,
         "use_tz_db_in_dot": False
     }
 
@@ -38,6 +38,10 @@ class DateConan(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+
+    def configure(self):
+        if self.settings.compiler.cppstd:
+            tools.check_min_cppstd(self, 11)
 
     def requirements(self):
         if not self.options.use_system_tz_db:
